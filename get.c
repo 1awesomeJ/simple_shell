@@ -1,24 +1,33 @@
 #include "main.h"
-char * _getenv(char *name)
+
+/**
+  * _getenv - get env value.
+  *
+  * @name: name of enviroment variable, e.g PATH
+  *
+  * Return: the value of the enviroment variable passed
+  */
+
+char *_getenv(char *name)
 {
-int i , j;
+int i, j;
 char *cenv[100];
 char *token, *value;
-i = 0; j = 0;
-while(environ[i] != NULL)
+i = j = 0;
+while (environ[i] != NULL)
 {
-	cenv[i] = malloc (sizeof(char) * 2000);
-	cenv[i] = strcpy(cenv[i], environ[i]);
+	cenv[i] = malloc(sizeof(char) * 2000);
+	cenv[i] = _strcpy(cenv[i], environ[i]);
 	i++;
 }
 	cenv[i] = NULL;
 
 	i = 0;
- 	while (cenv[i] != NULL)
+	while (cenv[i] != NULL)
 	{
 		token = strtok(cenv[i], "=");
 		value = strtok(NULL, "\0");
-	if(strcmp(name, token) == 0)
+	if (_strcmp(name, token) == 0)
 	{
 		j = 1;
 		break;
@@ -36,15 +45,21 @@ while (cenv[i] != NULL)
 	return (NULL);
 }
 
+/**
+ * _print_env - print current environment variable
+ *
+ * @env: current env. variable
+ *
+ * Return: Nothing.
+ */
+
 void _print_env(char **env)
 {
 	int i = 0;
+
 	while (env[i] != NULL)
 	{
-		printf("%s\n", env[i]);
+		_printf("%s\n", env[i]);
 		i++;
 	}
-
-
-
 }

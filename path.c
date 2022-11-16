@@ -1,20 +1,26 @@
 #include "main.h"
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <stdlib.h>
-char* findpath(char *cmnd)
+
+/**
+ * findpath - find the full path of an executable
+ *
+ * @cmnd: The command/executable
+ *
+ * Return: the full path of the executable
+ */
+
+char *findpath(char *cmnd)
 {
 int i, q, j;
 char *token, *ret;
 char *path[100];
 char *p = _getenv("PATH");
-char appending[20]= "/";
+char appending[20] = "/";
 char *append = _strcat(appending, cmnd);
- i = 0;
+
+i = 0;
 token = strtok(p, ":");
 
-while(token)
+while (token)
 {
 	path[i] = strdup(token);
 	token = strtok(NULL, ":");
@@ -23,7 +29,7 @@ while(token)
 path[i] = NULL;
 i = 0;
 j = 0;
-ret = malloc (sizeof(char) * 100);
+ret = malloc(sizeof(char) * 100);
 while (path[i] != NULL)
 {
 	path[i] = _strcat(path[i], append);
@@ -31,20 +37,13 @@ while (path[i] != NULL)
 	if (q == 0)
 	{
 		j = i;
-		ret = strcpy(ret, path[i]);
+		ret = _strcpy(ret, path[i]);
 		break;
 	}
 	i++;
 }
 
-/*i = 0;
-while (path[i])
-{
-	free(path[i]);
-	i++;
-}*/
-
 if (j)
-return (ret);
+	return (ret);
 return (NULL);
 }
