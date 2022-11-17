@@ -11,12 +11,13 @@
 int shell(char **env)
 {
 	ssize_t read_line;
-	char *token, *buffer, *path, *args[100], *envp[] = {NULL};
+	char *token, *buffer, *path, *r, *args[100], *envp[] = {NULL};
 	size_t n;
 	int i, k, status, terminal;
 	pid_t pid;
 	struct stat st;
-
+	
+	r = NULL;
 	read_line = n = 0;
 	path = NULL;
 	terminal = 1;
@@ -24,16 +25,25 @@ int shell(char **env)
 	{
 		i = 0;
 		terminal = isatty(STDIN_FILENO);
+			if (terminal)
 		write(STDOUT_FILENO, "#Cisfun$ ", 10);
 		read_line = getline(&buffer, &n, stdin);
 		if (read_line == -1)
 		{
+<<<<<<< HEAD
 			printf("logout\n");
+=======
+			_printf("logout\n");
+			free(buffer);
+			if (r != NULL)
+				free (r);
+>>>>>>> f6990b70c3e05463da62e4fcd9b43aeef0062790
 			return (0);
 		}
+		if (_strcmp(buffer, "\n") == 0)
+			continue;
 		token = strtok(buffer, "\n");
 		token = strtok(token, " ");
-
 		while (token)
 		{
 			args[i] = token;
@@ -42,7 +52,12 @@ int shell(char **env)
 		}
 		args[i] = NULL;
 		if (_strcmp(args[0], "exit") == 0)
+		{
+			free(buffer);
+			if (r != NULL)
+				free(r);
 			exit(EXIT_SUCCESS);
+		}
 		if ((_strcmp(args[0], "env") == 0))
 		{	_print_env(env);
 			continue;
@@ -51,7 +66,10 @@ int shell(char **env)
 		if (stat(args[0], &st) == 0)
 			path = args[0];
 		else
-			path = findpath(args[0]);
+		{
+			r = findpath(args[0]);
+			path = r;
+		}
 		if (path == NULL)
 		{
 			printf("%s: Command not found\n", args[0]);
@@ -65,7 +83,12 @@ int shell(char **env)
 				printf("%s: Command not found\n", args[0]);
 		}
 		else
+		{
 			wait(&status);
+		}
+
 	}
+	free(buffer);
+	free(r);
 	return (0);
 }
