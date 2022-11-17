@@ -14,6 +14,6 @@ int main(int ac, char **av, char **env)
 {
 	(void)ac;
 	(void)av;
-	printf("Hello world\n");
+	shell(env);
 	return (0);
 }
