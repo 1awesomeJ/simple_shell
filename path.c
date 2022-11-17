@@ -42,6 +42,12 @@ while (path[i] != NULL)
 	}
 	i++;
 }
+i = 0;
+while (path[i] != NULL)
+{
+	free(path[i]);
+	i++;
+}
 
 if (j)
 	return (ret);
