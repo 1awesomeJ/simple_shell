@@ -32,6 +32,7 @@ int shell(char **env)
 	{
 		i = 0;
 		terminal = isatty(STDIN_FILENO);
+		write(1, "$ ", 2);
 		read_line = getline(&buffer, &n, stdin);
 		if (read_line == -1)
 		{
