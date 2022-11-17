@@ -28,7 +28,7 @@ int shell(char **env)
 		read_line = getline(&buffer, &n, stdin);
 		if (read_line == -1)
 		{
-			_printf("logout\n");
+			printf("logout\n");
 			return (0);
 		}
 		token = strtok(buffer, "\n");
@@ -54,7 +54,7 @@ int shell(char **env)
 			path = findpath(args[0]);
 		if (path == NULL)
 		{
-			_printf("%s: Command not found\n", args[0]);
+			printf("%s: Command not found\n", args[0]);
 			continue;
 		}
 		pid = fork();
@@ -62,7 +62,7 @@ int shell(char **env)
 		{
 			k = execve(path, args, envp);
 			if (k == -1)
-				_printf("%s: Command not found\n", args[0]);
+				printf("%s: Command not found\n", args[0]);
 		}
 		else
 			wait(&status);
