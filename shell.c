@@ -11,13 +11,20 @@
 int shell(char **env)
 {
 	ssize_t read_line;
-	char *token, *buffer, *path, *r, *args[100], *envp[] = {NULL};
+	char *token, *buffer, *path, *r, *args[100], *envp[100];
 	size_t n;
 	int i, k, status, terminal;
 	pid_t pid;
 	struct stat st;
-	r = NULL;
 
+	i = 0;
+	while(env[i])
+	{
+		envp[i] = env[i];
+		i++;
+	}
+	envp[i] = NULL;
+	r = NULL;
 	read_line = n = 0;
 	path = NULL;
 	terminal = 1;
