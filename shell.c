@@ -25,6 +25,7 @@ int shell(char **env)
 	{
 		i = 0;
 		terminal = isatty(STDIN_FILENO);
+			if (terminal)
 		write(STDOUT_FILENO, "#Cisfun$ ", 10);
 		read_line = getline(&buffer, &n, stdin);
 		if (read_line == -1)
