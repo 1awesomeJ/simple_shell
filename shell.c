@@ -58,7 +58,7 @@ int shell(char **env)
 			free(buffer);
 			if (r != NULL)
 				free(r);
-			exit(EXIT_SUCCESS);
+			exit(2);
 		}
 		if ((_strcmp(args[0], "env") == 0))
 		{	_print_env(env);
