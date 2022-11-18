@@ -17,18 +17,14 @@ int shell(char **env)
 	pid_t pid;
 	struct stat st;
 
-	i = 0;
+	read_line = n = i = 0;
 	while(env[i])
 	{
 		envp[i] = env[i];
 		i++;
 	}
-	envp[i] = NULL;
-	r = NULL;
-	read_line = n = 0;
-	path = NULL;
 	terminal = 1;
-	token =	buffer = NULL;
+	envp[i] = r = path = token = buffer = NULL;
 	while (terminal)
 	{
 		i = 0;
@@ -47,6 +43,8 @@ int shell(char **env)
 		if (_strcmp(buffer, "\n") == 0)
 			continue;
 		token = strtok(buffer, "\n");
+		if (_strcmp(token, " ") == 0)
+			continue;
 		token = strtok(token, " ");
 		while (token)
 		{
