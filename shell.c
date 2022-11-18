@@ -11,12 +11,19 @@
 int shell(char **env)
 {
 	ssize_t read_line;
-	char *token, *buffer, *path, *r, *args[100], *envp[] = {NULL};
+	char *token, *buffer, *path, *r, *args[100], *envp[100];
 	size_t n;
 	int i, k, status, terminal;
 	pid_t pid;
 	struct stat st;
-	
+
+	i = 0;
+	while(env[i])
+	{
+		envp[i] = env[i];
+		i++;
+	}
+	envp[i] = NULL;
 	r = NULL;
 	read_line = n = 0;
 	path = NULL;
@@ -26,12 +33,16 @@ int shell(char **env)
 	{
 		i = 0;
 		terminal = isatty(STDIN_FILENO);
+<<<<<<< HEAD
 			if (terminal)
 		write(STDOUT_FILENO, "($) ", 4);
+=======
+		write(1, "$ ", 2);
+>>>>>>> c085c2f12c630d6d3ad2aafbf512ce81209f0976
 		read_line = getline(&buffer, &n, stdin);
 		if (read_line == -1)
 		{
-			_printf("logout\n");
+			printf("logout\n");
 			free(buffer);
 			if (r != NULL)
 				free (r);
@@ -69,7 +80,7 @@ int shell(char **env)
 		}
 		if (path == NULL)
 		{
-			_printf("%s: Command not found\n", args[0]);
+			printf("%s: Command not found\n", args[0]);
 			continue;
 		}
 		pid = fork();
@@ -77,7 +88,7 @@ int shell(char **env)
 		{
 			k = execve(path, args, envp);
 			if (k == -1)
-				_printf("%s: Command not found\n", args[0]);
+				printf("%s: Command not found\n", args[0]);
 		}
 		else
 		{

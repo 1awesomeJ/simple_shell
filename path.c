@@ -19,7 +19,6 @@ char *append = _strcat(appending, cmnd);
 
 i = 0;
 token = strtok(p, ":");
-
 while (token)
 {
 	path[i] = strdup(token);
@@ -48,7 +47,6 @@ while (path[i] != NULL)
 	free(path[i]);
 	i++;
 }
-
 if (j)
 	return (ret);
 return (NULL);

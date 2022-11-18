@@ -59,7 +59,7 @@ void _print_env(char **env)
 
 	while (env[i] != NULL)
 	{
-		_printf("%s\n", env[i]);
+		printf("%s\n", env[i]);
 		i++;
 	}
 }
