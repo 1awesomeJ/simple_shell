@@ -58,7 +58,7 @@ int shell(char **env)
 			free(buffer);
 			if (r != NULL)
 				free(r);
-			exit(2);
+			exit(EXIT_SUCCESS);
 		}
 		if ((_strcmp(args[0], "env") == 0))
 		{	_print_env(env);
@@ -82,7 +82,10 @@ int shell(char **env)
 		{
 			k = execve(path, args, envp);
 			if (k == -1)
+			{
 				printf("%s: Command not found\n", args[0]);
+				exit(2);
+			}
 		}
 		else
 		{
