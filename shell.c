@@ -21,12 +21,13 @@ int shell(char **env)
 	read_line = n = 0;
 	path = NULL;
 	terminal = 1;
+	token =	buffer = NULL;
 	while (terminal)
 	{
 		i = 0;
 		terminal = isatty(STDIN_FILENO);
 			if (terminal)
-		write(STDOUT_FILENO, "#Cisfun$ ", 10);
+		write(STDOUT_FILENO, "($) ", 4);
 		read_line = getline(&buffer, &n, stdin);
 		if (read_line == -1)
 		{
