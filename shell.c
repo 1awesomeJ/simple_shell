@@ -33,12 +33,8 @@ int shell(char **env)
 	{
 		i = 0;
 		terminal = isatty(STDIN_FILENO);
-<<<<<<< HEAD
 			if (terminal)
 		write(STDOUT_FILENO, "($) ", 4);
-=======
-		write(1, "$ ", 2);
->>>>>>> c085c2f12c630d6d3ad2aafbf512ce81209f0976
 		read_line = getline(&buffer, &n, stdin);
 		if (read_line == -1)
 		{
