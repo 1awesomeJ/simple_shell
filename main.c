@@ -13,8 +13,9 @@
 
 int main(int ac, char **av, char **env)
 {
+	int i;
 	(void)ac;
 	(void)av;
-	shell(env);
-	return (0);
+	i = shell(env);
+	return (i);
 }

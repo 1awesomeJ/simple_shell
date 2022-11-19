@@ -13,7 +13,7 @@ int shell(char **env)
 	ssize_t read_line;
 	char *token, *buffer, *path, *r, *args[100], *envp[100];
 	size_t n;
-	int i, k, status, terminal;
+	int i, k, x, status, terminal;
 	pid_t pid;
 	struct stat st;
 
@@ -91,9 +91,9 @@ int shell(char **env)
 		{
 			wait(&status);
 		}
-
+		x = WEXITSTATUS(status);
 	}
 	free(buffer);
 	free(r);
-	return (0);
+	return (x);
 }
